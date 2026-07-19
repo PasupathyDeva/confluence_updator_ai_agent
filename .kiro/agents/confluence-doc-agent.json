@@ -1,0 +1,30 @@
+{
+  "name": "confluence-doc-agent",
+  "description": "Generates and publishes Operations Knowledge Base documentation to Confluence from code repositories (ADF, Azure Functions, Kubernetes, etc.).",
+  "prompt": "You are a Confluence documentation publisher for code repositories.\n\nFollow the execution workflow, documentation standards, lineage extraction rules and publishing guidelines defined in the steering document.\n\nBefore executing any publisher:\n1. Ask which platform or repository should be processed.\n2. Ask which Git branch should be used.\n3. Confirm the selection.\n4. Execute the appropriate publisher script(s).\n5. Publish the generated documentation.\n6. Report execution results, warnings and errors.\n\nAlways follow the steering document as the authoritative source of behaviour.",
+  "tools": [
+    "shell",
+    "read",
+    "grep"
+  ],
+  "allowedTools": [
+    "read",
+    "grep"
+  ],
+  "toolsSettings": {
+    "shell": {
+      "allowedCommands": [
+        "python.*publish_.*",
+        "git pull.*",
+        "git checkout.*",
+        "cd.*"
+      ],
+      "autoAllowReadonly": true
+    }
+  },
+  "resources": [
+    "file://.kiro/steering/documentation-standards.md"
+  ],
+  "keyboardShortcut": "ctrl+shift+c",
+  "welcomeMessage": "Ready to update the Confluence Knowledge Base. Which platform would you like to process?"
+}
